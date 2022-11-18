@@ -40,7 +40,9 @@ export default function Shelf({ id, shelfName, books }: Props) {
                 </Heading>
                 <Button>View All</Button>
             </Flex>
-            <Stack direction={"row"}>{renderBooks(books, id)}</Stack>
+            <Stack direction={"row"} overflow="scroll">
+                {renderBooks(books, id)}
+            </Stack>
         </Box>
     );
 }
