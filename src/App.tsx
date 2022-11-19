@@ -2,6 +2,7 @@ import * as React from "react";
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MyBooks from "./my-books/MyBooks";
+import BookOverview from "./components/BookOverview";
 
 export const App = () => (
     <Router>
@@ -10,11 +11,12 @@ export const App = () => (
                 <Route
                     path="/"
                     element={
-                        <>
-                            <MyBooks />
-                        </>
+                            <MyBooks />                        
                     }
                 ></Route>
+                <Route path="/OverView" element={<>
+                        <BookOverview/>
+                    </>}></Route>
             </Routes>
         </ChakraProvider>
     </Router>
