@@ -38,7 +38,6 @@ export default function Shelf({ id, shelfName, books }: Props) {
                 <Heading as="h2" size="md">
                     {shelfName}
                 </Heading>
-                <Button>View All</Button>
             </Flex>
             <Stack direction={"row"} overflow="scroll">
                 {renderBooks(books, id)}

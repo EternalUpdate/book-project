@@ -1,41 +1,21 @@
 import * as React from "react";
-import {
-    ChakraProvider,
-    Box,
-    Text,
-    Link,
-    VStack,
-    Code,
-    Grid,
-    theme,
-    Heading,
-} from "@chakra-ui/react";
-import { ColorModeSwitcher } from "./ColorModeSwitcher";
+import { ChakraProvider, theme } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ShelfView from "./Shared/ShelfView";
+import MyBooks from "./my-books/MyBooks";
 
 export const App = () => (
     <Router>
-        
-    <ChakraProvider theme={theme}>
-        <Box textAlign="center" fontSize="xl">
-            <Heading as="h1" mt="2rem">
-                Book Project
-            </Heading>
-            <Grid minH="100vh" p={3}>
+        <ChakraProvider theme={theme}>
             <Routes>
-                <Route path="/" element={<>     
-                    <ColorModeSwitcher justifySelf="flex-end" />
-                    <ShelfView />
-                    </>}>
-                </Route>
-                
+                <Route
+                    path="/"
+                    element={
+                        <>
+                            <MyBooks />
+                        </>
+                    }
+                ></Route>
             </Routes>
-                
-                
-            </Grid>
-        </Box>
-    </ChakraProvider>
-    
+        </ChakraProvider>
     </Router>
 );
