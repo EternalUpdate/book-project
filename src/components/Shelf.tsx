@@ -16,9 +16,9 @@ function renderBooks(books: Book[], shelfId: number): ReactElement[] {
             elements.push(
                 <Link to="/OverView" state={book}>
                     <Image
-                        boxSize="150px"
-                        maxWidth="7rem"
+                        maxWidth="9rem"
                         objectFit="cover"
+                        shadow="dark-lg"
                         src={book.bookInfo.cover_url}
                     />
                 </Link>
@@ -43,7 +43,7 @@ export default function Shelf({ id, shelfName, books }: Props) {
                     {shelfName}
                 </Heading>
             </Flex>
-            <Stack direction={"row"} overflow="scroll" maxWidth="3xl">
+            <Stack direction={"row"} overflow="scroll" maxWidth="90vw">
                 {renderBooks(books, id)}
             </Stack>
         </Box>
