@@ -1,7 +1,7 @@
 import { Stack, Image, Heading, Box, Button, Flex } from "@chakra-ui/react";
 import React, { ReactElement } from "react";
 import { Book, testBooks } from "../types/Book";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 type Props = {
     id: number;
@@ -14,12 +14,13 @@ function renderBooks(books: Book[], shelfId: number): ReactElement[] {
     for (let book of books) {
         if (book.userBook.shelf_id === shelfId) {
             elements.push(
-                <Link to="/OverView" state={book} >
-                <Image
-                    boxSize="150px"
-                    objectFit="cover"
-                    src={book.bookInfo.cover_url}
-                />
+                <Link to="/OverView" state={book}>
+                    <Image
+                        boxSize="150px"
+                        maxWidth="7rem"
+                        objectFit="cover"
+                        src={book.bookInfo.cover_url}
+                    />
                 </Link>
             );
         }
@@ -42,7 +43,7 @@ export default function Shelf({ id, shelfName, books }: Props) {
                     {shelfName}
                 </Heading>
             </Flex>
-            <Stack direction={"row"} overflow="scroll">
+            <Stack direction={"row"} overflow="scroll" maxWidth="3xl">
                 {renderBooks(books, id)}
             </Stack>
         </Box>
