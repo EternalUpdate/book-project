@@ -53,6 +53,10 @@ function BookOverview() {
                     <Text>
                         <b>Summary:</b> {book.bookInfo.blurb}
                     </Text>
+                    <br />
+                    <Button>
+                        Add to favorites
+                    </Button>
                 </Box>
             </Flex>
             <Button

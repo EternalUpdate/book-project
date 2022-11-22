@@ -16,6 +16,7 @@ export type Book = {
         pages_read: number;
         rating: number;
         review: string;
+        favorite: boolean;
     };
 }
 
@@ -37,7 +38,8 @@ export const testBooks: Book[] = [
             shelf_id: 1,
             pages_read: 1,
             rating: 1,
-            review: "review"
+            review: "review",
+            favorite: false
         }
     },
     {
@@ -50,14 +52,15 @@ export const testBooks: Book[] = [
             page_no: 1,
             author: "author 2",
             publisher: "publisher 2",
-            genre: ["fantasy"]
+            genre: ["fantasy"],
         },
         userBook: {
             user_id: 1,
             shelf_id: 1,
             pages_read: 2,
             rating: 2,
-            review: "review 2"
+            review: "review 2",
+            favorite: false
         }
     },
     {
@@ -77,7 +80,8 @@ export const testBooks: Book[] = [
             shelf_id: 2,
             pages_read: 3,
             rating: 3,
-            review: "review 3"
+            review: "review 3",
+            favorite: false
         }
     },
     {
@@ -97,7 +101,8 @@ export const testBooks: Book[] = [
             shelf_id: 3,
             pages_read: 4,
             rating: 4,
-            review: "review 4"
+            review: "review 4",
+            favorite: false
         }
     },
     {
@@ -117,7 +122,8 @@ export const testBooks: Book[] = [
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
-            review: "review 5"
+            review: "review 5",
+            favorite: false
         }
     },
     {
@@ -137,7 +143,8 @@ export const testBooks: Book[] = [
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
-            review: "review 5"
+            review: "review 5",
+            favorite: false
         }
     },
     {
@@ -157,7 +164,8 @@ export const testBooks: Book[] = [
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
-            review: "review 5"
+            review: "review 5",
+            favorite: false
         }
     },
     {
@@ -177,7 +185,8 @@ export const testBooks: Book[] = [
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
-            review: "review 5"
+            review: "review 5",
+            favorite: false
         }
     },
     {
@@ -197,7 +206,8 @@ export const testBooks: Book[] = [
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
-            review: "review 5"
+            review: "review 5",
+            favorite: false
         }
     },
     {
@@ -217,7 +227,8 @@ export const testBooks: Book[] = [
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
-            review: "review 5"
+            review: "review 5",
+            favorite: false
         }
     },
     {
@@ -237,7 +248,8 @@ export const testBooks: Book[] = [
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
-            review: "review 5"
+            review: "review 5",
+            favorite: false
         }
     },
     {
@@ -257,7 +269,8 @@ export const testBooks: Book[] = [
             shelf_id: 1,
             pages_read: 6,
             rating: 6,
-            review: "review 6"
+            review: "review 6",
+            favorite: false
         }
     }
 ]
