@@ -1,4 +1,4 @@
-import { Stack, Image, Heading, Box, Button, Flex } from "@chakra-ui/react";
+import { Stack, Image, Heading, Box, Flex } from "@chakra-ui/react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Book } from "../types/Book";
 import { Link } from "react-router-dom";
@@ -12,8 +12,6 @@ type Props = {
 function renderBooks(books: Book[], shelfID: number): ReactElement[] {
     const elements = Array<ReactElement>();
 
-    console.log(`shelfId: ${shelfID}`);
-    console.log(books);
     for (const book of books) {
         console.log(book);
         if (book.userBook.shelf_id === shelfID) {
@@ -30,7 +28,6 @@ function renderBooks(books: Book[], shelfID: number): ReactElement[] {
         }
     }
 
-    console.log("Hello");
     return elements;
 }
 
@@ -80,7 +77,7 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
                 setShelfBooks(books);
             })
             .catch((error) => console.log("error", error));
-    });
+    }, [shelfID, userID]);
 
     return (
         <Box
