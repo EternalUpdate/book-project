@@ -92,7 +92,12 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
                     {shelfName}
                 </Heading>
             </Flex>
-            <Stack direction={"row"} overflow="scroll" maxWidth="90vw">
+            <Stack
+                direction={"row"}
+                overflow="scroll"
+                maxWidth="90vw"
+                alignItems="flex-end"
+            >
                 {renderBooks(shelfBooks, shelfID)}
             </Stack>
         </Box>
