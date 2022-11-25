@@ -1,5 +1,5 @@
-import React, { ReactElement } from "react";
-import { Book, testBooks } from "../types/Book";
+import React from "react";
+import { Book } from "../types/Book";
 import { Link, useLocation } from "react-router-dom";
 import { Image, Heading, Text, Box, Button, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ function BookOverview() {
                         {book.bookInfo.title}
                     </Heading>
                     <Text>
-                        <b>Shelf:</b>
+                        <b>Shelf: {book.userBook.shelf_id}</b>
                     </Text>
                     <Text>
                         <b>Genre(s):</b> {book.bookInfo.genre}
@@ -52,6 +52,12 @@ function BookOverview() {
                     </Text>
                     <Text>
                         <b>Summary:</b> {book.bookInfo.blurb}
+                    </Text>
+                    <Text>
+                        <b>Rating:</b> {book.userBook.rating}
+                    </Text>
+                    <Text>
+                        <b>Review:</b> {book.userBook.review}
                     </Text>
                 </Box>
             </Flex>
