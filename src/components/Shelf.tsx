@@ -23,10 +23,57 @@ function renderBooks(books: Book[], shelfId: number): ReactElement[] {
                     />
                 </Link>
             );
+            getUserBooks(shelfId, "1234");
         }
     }
 
     return elements;
+}
+
+function getUserBooks(shelfId: number, userId: string): Book[] {
+    let books: Book[] = [];
+
+    let requestOptions: RequestInit = {
+        method: "GET",
+        redirect: "follow",
+    };
+
+    fetch(
+        `http://localhost:8000/users/${userId}/shelves/${shelfId}`,
+        requestOptions
+    )
+        .then((response) => response.json())
+        .then((result) => {
+            for (const book of result) {
+                let newBook: Book = {
+                    isbn: book.isbn,
+                    bookInfo: {
+                        title: book.title,
+                        year: 0,
+                        blurb: "",
+                        cover_url: book.cover_url,
+                        page_no: 0,
+                        author: "",
+                        publisher: "",
+                        genre: [],
+                    },
+                    userBook: {
+                        user_id: userId,
+                        shelf_id: shelfId,
+                        pages_read: 0,
+                        rating: 0,
+                        review: "",
+                    },
+                };
+
+                books.push(newBook);
+            }
+        })
+        .catch((error) => console.log("error", error));
+
+    console.log(books);
+
+    return books;
 }
 
 export default function Shelf({ id, shelfName, books }: Props) {
