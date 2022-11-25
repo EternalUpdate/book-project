@@ -1,16 +1,15 @@
 import { VStack } from "@chakra-ui/react";
-import { testBooks } from "../types/Book";
 import Shelf from "../components/Shelf";
 
 export default function ShelfView() {
     return (
         <VStack spacing={3}>
-            <Shelf id={1} shelfName="To Read" books={testBooks} />
-            <Shelf id={2} shelfName="Reading" books={testBooks} />
-            <Shelf id={3} shelfName="Finished" books={testBooks} />
-            <Shelf id={4} shelfName="Want to Read" books={testBooks} />
-            <Shelf id={5} shelfName="Favorites" books={testBooks} />
-            <Shelf id={6} shelfName="Recommended" books={testBooks} />
+            <Shelf shelfID={0} userID={"1234"} shelfName="To Read" />
+            <Shelf shelfID={1} userID={"1234"} shelfName="Reading" />
+            <Shelf shelfID={2} userID={"1234"} shelfName="Finished" />
+            <Shelf shelfID={3} userID={"1234"} shelfName="Want to Read" />
+            <Shelf shelfID={4} userID={"1234"} shelfName="Favorites" />
+            <Shelf shelfID={5} userID={"1234"} shelfName="Recommended" />
         </VStack>
     );
 }

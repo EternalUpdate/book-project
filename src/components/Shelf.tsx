@@ -1,18 +1,22 @@
 import { Stack, Image, Heading, Box, Button, Flex } from "@chakra-ui/react";
-import React, { ReactElement } from "react";
-import { Book, testBooks } from "../types/Book";
+import React, { ReactElement, useEffect, useState } from "react";
+import { Book } from "../types/Book";
 import { Link } from "react-router-dom";
 
 type Props = {
-    id: number;
+    shelfID: number;
+    userID: string;
     shelfName: string;
-    books: Book[];
 };
 
-function renderBooks(books: Book[], shelfId: number): ReactElement[] {
+function renderBooks(books: Book[], shelfID: number): ReactElement[] {
     const elements = Array<ReactElement>();
-    for (let book of books) {
-        if (book.userBook.shelf_id === shelfId) {
+
+    console.log(`shelfId: ${shelfID}`);
+    console.log(books);
+    for (const book of books) {
+        console.log(book);
+        if (book.userBook.shelf_id === shelfID) {
             elements.push(
                 <Link to="/OverView" state={book}>
                     <Image
@@ -23,60 +27,61 @@ function renderBooks(books: Book[], shelfId: number): ReactElement[] {
                     />
                 </Link>
             );
-            getUserBooks(shelfId, "1234");
         }
     }
 
+    console.log("Hello");
     return elements;
 }
 
-function getUserBooks(shelfId: number, userId: string): Book[] {
-    let books: Book[] = [];
+export default function Shelf({ shelfID, userID, shelfName }: Props) {
+    const [shelfBooks, setShelfBooks] = useState<Book[]>([]);
 
-    let requestOptions: RequestInit = {
-        method: "GET",
-        redirect: "follow",
-    };
+    useEffect(() => {
+        // get the userBooks when the shelf loads
+        let books: Book[] = [];
 
-    fetch(
-        `http://localhost:8000/users/${userId}/shelves/${shelfId}`,
-        requestOptions
-    )
-        .then((response) => response.json())
-        .then((result) => {
-            for (const book of result) {
-                let newBook: Book = {
-                    isbn: book.isbn,
-                    bookInfo: {
-                        title: book.title,
-                        year: 0,
-                        blurb: "",
-                        cover_url: book.cover_url,
-                        page_no: 0,
-                        author: "",
-                        publisher: "",
-                        genre: [],
-                    },
-                    userBook: {
-                        user_id: userId,
-                        shelf_id: shelfId,
-                        pages_read: 0,
-                        rating: 0,
-                        review: "",
-                    },
-                };
+        let requestOptions: RequestInit = {
+            method: "GET",
+            redirect: "follow",
+        };
 
-                books.push(newBook);
-            }
-        })
-        .catch((error) => console.log("error", error));
+        fetch(
+            `http://localhost:8000/users/${userID}/shelves/${shelfID}`,
+            requestOptions
+        )
+            .then((response) => response.json())
+            .then((result) => {
+                for (const book of result) {
+                    let newBook: Book = {
+                        isbn: book.isbn,
+                        bookInfo: {
+                            title: book.title,
+                            year: 0,
+                            blurb: "",
+                            cover_url: book.cover_url,
+                            page_no: 0,
+                            author: "",
+                            publisher: "",
+                            genre: [],
+                        },
+                        userBook: {
+                            user_id: userID,
+                            shelf_id: shelfID,
+                            pages_read: 0,
+                            rating: 0,
+                            review: "",
+                        },
+                    };
 
-    console.log(books);
+                    books.push(newBook);
+                }
 
-    return books;
-}
+                setShelfBooks(books);
+            })
+            .catch((error) => console.log("error", error));
+    });
 
-export default function Shelf({ id, shelfName, books }: Props) {
     return (
         <Box
             borderRadius="lg"
@@ -91,7 +96,7 @@ export default function Shelf({ id, shelfName, books }: Props) {
                 </Heading>
             </Flex>
             <Stack direction={"row"} overflow="scroll" maxWidth="90vw">
-                {renderBooks(books, id)}
+                {renderBooks(shelfBooks, shelfID)}
             </Stack>
         </Box>
     );

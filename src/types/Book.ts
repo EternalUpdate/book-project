@@ -11,7 +11,7 @@ export type Book = {
         genre: string[];
     };
     userBook: {
-        user_id: number;
+        user_id: string;
         shelf_id: number;
         pages_read: number;
         rating: number;
@@ -33,7 +33,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 1,
             pages_read: 1,
             rating: 1,
@@ -53,7 +53,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 1,
             pages_read: 2,
             rating: 2,
@@ -73,7 +73,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 2,
             pages_read: 3,
             rating: 3,
@@ -93,7 +93,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 3,
             pages_read: 4,
             rating: 4,
@@ -113,7 +113,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
@@ -133,7 +133,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
@@ -153,7 +153,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
@@ -173,7 +173,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
@@ -193,7 +193,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
@@ -213,7 +213,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
@@ -233,7 +233,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 1,
             pages_read: 5,
             rating: 5,
@@ -253,7 +253,7 @@ export const testBooks: Book[] = [
             genre: ["fantasy"]
         },
         userBook: {
-            user_id: 1,
+            user_id: "1",
             shelf_id: 1,
             pages_read: 6,
             rating: 6,
