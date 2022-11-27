@@ -9,6 +9,15 @@ type Props = {
     shelfName: string;
 };
 
+export const shelfNames: { [key: number]: string } = {
+    0: "To Read",
+    1: "Reading",
+    2: "Finished",
+    3: "Did Not Finish",
+    4: "Favorites",
+    5: "Recommended",
+};
+
 function renderBooks(books: Book[], shelfID: number): ReactElement[] {
     const elements = Array<ReactElement>();
 

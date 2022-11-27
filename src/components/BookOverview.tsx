@@ -1,5 +1,6 @@
 import React from "react";
 import { Book } from "../types/Book";
+import { shelfNames } from "../components/Shelf";
 import { Link, useLocation } from "react-router-dom";
 import { Image, Heading, Text, Box, Button, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +43,7 @@ function BookOverview() {
                         {book.bookInfo.title}
                     </Heading>
                     <Text>
-                        <b>Shelf: {book.userBook.shelf_id}</b>
+                        <b>Shelf:</b> {shelfNames[book.userBook.shelf_id]}
                     </Text>
                     <Text>
                         <b>Genre(s):</b> {book.bookInfo.genre}
