@@ -51,23 +51,23 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
             .then((result) => {
                 for (const book of result) {
                     let newBook: Book = {
-                        isbn: book.isbn,
+                        isbn: book.UserBook.isbn,
                         bookInfo: {
-                            title: book.title,
-                            year: 0,
-                            blurb: "",
-                            cover_url: book.cover_url,
-                            page_no: 0,
-                            author: "",
+                            title: book.BookInfo.title,
+                            year: book.BookInfo.year,
+                            blurb: book.BookInfo.blurb,
+                            cover_url: book.BookInfo.cover_url,
+                            page_no: book.BookInfo.page_no,
+                            author: book.name,
                             publisher: "",
-                            genre: [],
+                            genre: [book.genre],
                         },
                         userBook: {
                             user_id: userID,
                             shelf_id: shelfID,
-                            pages_read: 0,
-                            rating: 0,
-                            review: "",
+                            pages_read: book.UserBook.pages_read,
+                            rating: book.UserBook.rating,
+                            review: book.UserBook.review,
                         },
                     };
 
