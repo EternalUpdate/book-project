@@ -31,9 +31,9 @@ function BookOverview() {
     const navigate = useNavigate();
     const [edit,setEdit]=useState(false);
     const [currentShelf,setCurrentShelf]=useState(shelfNames[book.userBook.shelf_id])
-    const [currentBook,setCurrentBook]=useState(book)
-    const [currentUserBook,setCurrentUserBook]=useState(book.userBook)
+   
 
+    const [shelfID,setShelfID]=useState(book.userBook.shelf_id);
 
     const handleEdit = () => {
         setEdit(true);
@@ -48,33 +48,33 @@ function BookOverview() {
         // do the rest here
         console.log(event.target.value);
         setCurrentShelf(event.target.value); 
-        
-         
         console.log(shelfIDS[event.target.value]);
+        setShelfID(shelfIDS[event.target.value]);
+        // setShelfID(0);
         
-        setCurrentUserBook({...currentUserBook,shelf_id:shelfIDS[event.target.value]});
-        setCurrentBook([{...currentBook, userBook:currentUserBook } ])
-        console.log(currentBook)
       }
 
 
-      useEffect(() => {
-        // POST request using fetch inside useEffect React hook
-        
-        fetch(`https://Localhost:8000/users/${book.userBook.user_id}/books/${book.isbn}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*' },
-            body: JSON.stringify(currentBook)
-        })
-            .then(response => 
-                console.log(currentBook)
-                )
-                .catch((error) => console.log("error", error));
-    // empty dependency array means this effect will only run once (like componentDidMount in classes)
-    }, [currentShelf]);
-
-      
+   
+    useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("accept", "application/json");
+    myHeaders.append("Content-Type", "application/json");
+    console.log( "inside useEffect "+shelfID)
+    var raw = JSON.stringify({
+      "shelf_id": shelfID
+    });
+     
+    fetch(`http://localhost:8000/users/${book.userBook.user_id}/books/${book.isbn}`, 
+    { method: 'PUT',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'}
+    )
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+         }, [shelfID]);
 
     return (
         <Flex direction="column" alignItems="center" p="1rem">
@@ -110,8 +110,7 @@ function BookOverview() {
                         <option value="Recommended">Recommended</option>
                     </select>: shelfNames[book.userBook.shelf_id]
                     }
-                    </Text>
-                    
+                    </Text>                  
                     
                     <Text>
                         <b>Genre(s):</b> {book.bookInfo.genre}
