@@ -24,7 +24,6 @@ function renderBooks(books: Book[], shelfID: number): ReactElement[] {
 
     for (const book of books) {
         console.log(book);
-        if (book.userBook.shelf_id === shelfID) {
             elements.push(
                 <Link to="/OverView" state={book}>
                     <Image
@@ -34,8 +33,7 @@ function renderBooks(books: Book[], shelfID: number): ReactElement[] {
                         src={book.bookInfo.cover_url}
                     />
                 </Link>
-            );
-        }
+            );   
     }
 
     return elements;
@@ -107,7 +105,7 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
                         },
                         userBook: {
                             user_id: userID,
-                            shelf_id: shelfID,
+                            shelf_id: book.UserBook.shelf_id,
                             pages_read: book.UserBook.pages_read,
                             rating: book.UserBook.rating,
                             review: book.UserBook.review,

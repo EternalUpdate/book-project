@@ -119,7 +119,78 @@ function BookOverview() {
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
             }, [shelfID]);
+    if(currentShelf=="Recommended"){
+        return (
+            <Flex direction="column" alignItems="center" p="1rem">
+                <Heading as="h1">Book Details</Heading>
+                <Flex direction="row" m="4rem">
+                    <Image
+                        src={book.bookInfo.cover_url}
+                        maxHeight="sm"
+                        boxShadow="dark-lg"
+                        alt="image"
+                        className="img"
+                    />
+                    <Box
+                        className="detail"
+                        ml="4rem"
+                        p="2rem"
+                        // bgColor="gray.50"
+                        minWidth="2xs"
+                    >
+                        <Heading as="h2" fontSize="3xl" mb="1rem">
+                            {book.bookInfo.title}
+                        </Heading>
+                        <Text>
+                            <b>Shelf:</b> 
+                        
+                        {edit ? 
+                        <select name="dog-names" id="dog-names" onChange={handleChange} value={currentShelf} defaultValue={currentShelf}>
+                            <option value="To Read">To Read</option>
+                            <option value="Reading">Reading</option>
+                            <option value="Finished">Finished</option>
+                            <option value="Did Not Finish">Did Not Finish</option>
+                            <option value="Recommended">Recommended</option>
 
+                        </select>: shelfNames[book.userBook.shelf_id]
+                        }
+                        </Text>                  
+                        
+                        <Text>
+                            <b>Genre(s):</b> {book.bookInfo.genre}
+                        </Text>
+                        <Text>
+                            <b>Author(s):</b> {book.bookInfo.author}
+                        </Text>
+                        <Text>
+                            <b>Summary:</b> {book.bookInfo.blurb}
+                        </Text>
+                        <Text>
+                            <b>Rating:</b> {book.userBook.rating}
+                        </Text>
+                        <Text>
+                            <b>Review:</b> {book.userBook.review}
+                        </Text>
+                        <br/>
+                        <Button  onClick={handleEdit} colorScheme='teal' size='sm'>
+                            Edit
+                        </Button>
+                        <Button  onClick={handlefav} >
+                            {favText}
+                        </Button>    
+                    </Box>
+                </Flex>
+                <Button
+                    onClick={goBack}
+                    className="back-button"
+                    justifySelf="right"
+                >
+                    &larr; Go Back
+                </Button>
+            </Flex>
+        );
+    }
+    else
     return (
         <Flex direction="column" alignItems="center" p="1rem">
             <Heading as="h1">Book Details</Heading>
