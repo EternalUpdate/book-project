@@ -150,8 +150,6 @@ function BookOverview() {
                         <option value="Reading">Reading</option>
                         <option value="Finished">Finished</option>
                         <option value="Did Not Finish">Did Not Finish</option>
-                        <option value="Favorites">Favorites</option>
-                        <option value="Recommended">Recommended</option>
                     </select>: shelfNames[book.userBook.shelf_id]
                     }
                     </Text>                  
