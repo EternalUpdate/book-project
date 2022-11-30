@@ -88,15 +88,13 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
             })
             .catch((error) => console.log("error", error));}
         else if (shelfID==4){
-            fetch(`http://localhost:8000/users/${userID}/favourites`,
-            requestOptions
-            )
+            fetch(`http://localhost:8000/users/${userID}/favourites`,requestOptions)
             .then((response) => response.json())
             .then((result) => {
                 
                 for (const book of result) {
                     let newBook: Book = {
-                        isbn: book.isbn,
+                        isbn: book.UserBook.isbn,
                         bookInfo: {
                             title: book.BookInfo.title,
                             year: book.BookInfo.year,
