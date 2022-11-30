@@ -2,7 +2,7 @@ import { Stack, Image, Heading, Box, Flex } from "@chakra-ui/react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Book } from "../types/Book";
 import { Link } from "react-router-dom";
-import { createNoSubstitutionTemplateLiteral } from "typescript";
+
 
 type Props = {
     shelfID: number;
@@ -52,13 +52,13 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
             method: "GET",
             redirect: "follow",
         };
-
-        fetch(
-            `http://localhost:8000/users/${userID}/shelves/${shelfID}`,
+        if(shelfID>=0&&shelfID<=3){
+            fetch(`http://localhost:8000/users/${userID}/shelves/${shelfID}`,
             requestOptions
-        )
+            )
             .then((response) => response.json())
             .then((result) => {
+                
                 for (const book of result) {
                     let newBook: Book = {
                         isbn: book.UserBook.isbn,
@@ -84,10 +84,79 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
 
                     books.push(newBook);
                 }
+                setShelfBooks(books);
+            })
+            .catch((error) => console.log("error", error));}
+        else if (shelfID==4){
+            fetch(`http://localhost:8000/users/${userID}/favourites`,
+            requestOptions
+            )
+            .then((response) => response.json())
+            .then((result) => {
+                
+                for (const book of result) {
+                    let newBook: Book = {
+                        isbn: book.isbn,
+                        bookInfo: {
+                            title: book.BookInfo.title,
+                            year: book.BookInfo.year,
+                            blurb: book.BookInfo.blurb,
+                            cover_url: book.BookInfo.cover_url,
+                            page_no: book.BookInfo.page_no,
+                            author: book.name,
+                            publisher: "",
+                            genre: [book.genre],
+                        },
+                        userBook: {
+                            user_id: userID,
+                            shelf_id: shelfID,
+                            pages_read: book.UserBook.pages_read,
+                            rating: book.UserBook.rating,
+                            review: book.UserBook.review,
+                            is_favourite: book.UserBook.is_favourite,
+                        },
+                    };
+                    books.push(newBook);
+                }
 
                 setShelfBooks(books);
             })
-            .catch((error) => console.log("error", error));
+            .catch((error) => console.log("error", error));}
+        else{
+            fetch(`http://localhost:8000/users/${userID}/recommended`,
+            requestOptions
+            )
+            .then((response) => response.json())
+            .then((result) => {
+                
+                for (const book of result) {
+                    let newBook: Book = {
+                        isbn: book.isbn,
+                        bookInfo: {
+                            title: book.BookInfo.title,
+                            year: book.BookInfo.year,
+                            blurb: book.BookInfo.blurb,
+                            cover_url: book.BookInfo.cover_url,
+                            page_no: book.BookInfo.page_no,
+                            author: book.BookInfo.author_id,                            
+                            publisher: "",
+                            genre: [book.genre],
+                        },
+                        userBook: {
+                            user_id: userID,
+                            shelf_id: shelfID,
+                            pages_read: 0,
+                            rating: 0,
+                            review: "no review" ,
+                            is_favourite: false,
+                        },
+                    };
+                    books.push(newBook);
+                }
+
+                setShelfBooks(books);
+            })
+            .catch((error) => console.log("error", error));}         
     }, [shelfID, userID]);
 
     return (
