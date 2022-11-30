@@ -2,6 +2,7 @@ import { Stack, Image, Heading, Box, Flex } from "@chakra-ui/react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Book } from "../types/Book";
 import { Link } from "react-router-dom";
+import { createNoSubstitutionTemplateLiteral } from "typescript";
 
 type Props = {
     shelfID: number;
@@ -77,6 +78,7 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
                             pages_read: book.UserBook.pages_read,
                             rating: book.UserBook.rating,
                             review: book.UserBook.review,
+                            is_favourite: book.UserBook.is_favourite,
                         },
                     };
 
