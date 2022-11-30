@@ -31,9 +31,12 @@ function BookOverview() {
     const navigate = useNavigate();
     const [edit,setEdit]=useState(false);
     const [currentShelf,setCurrentShelf]=useState(shelfNames[book.userBook.shelf_id])
-   
-
     const [shelfID,setShelfID]=useState(book.userBook.shelf_id);
+    const [favorite,setfavorite]=useState(book.userBook.is_favourite);
+    const [favText, setfavText] = useState(()=>{if (favorite==true){
+        return '❤️';}
+        return '♡';
+    });
 
     const handleEdit = () => {
         setEdit(true);
@@ -52,29 +55,70 @@ function BookOverview() {
         setShelfID(shelfIDS[event.target.value]);
         // setShelfID(0);
         
-      }
-
-
+    }
+    const handlefav= () => {
+        if(favorite==true){
+            setfavorite(false);
+            setfavText("♡");
+            console.log(favorite); 
+            var myHeaders = new Headers();
+            myHeaders.append("accept", "application/json");
+            myHeaders.append("Content-Type", "application/json");
+            console.log( "inside useEffect "+favorite)
+            var raw = JSON.stringify({
+            "is_favourite": false 
+            });
+            fetch(`http://localhost:8000/users/${book.userBook.user_id}/books/${book.isbn}`, 
+            { method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'})
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));  
+        }
+        else{
+            setfavorite(true);
+            setfavText("❤️");
+            console.log(favorite);
+            var myHeaders = new Headers();
+            myHeaders.append("accept", "application/json");
+            myHeaders.append("Content-Type", "application/json");
+            console.log( "inside useEffect "+favorite)
+            var raw = JSON.stringify({
+            "is_favourite": true 
+            });
+            fetch(`http://localhost:8000/users/${book.userBook.user_id}/books/${book.isbn}`, 
+            { method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'})
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));  
+            
+            
+         }
+    }
    
-    useEffect(() => {
-    var myHeaders = new Headers();
-    myHeaders.append("accept", "application/json");
-    myHeaders.append("Content-Type", "application/json");
-    console.log( "inside useEffect "+shelfID)
-    var raw = JSON.stringify({
-      "shelf_id": shelfID
-    });
-     
-    fetch(`http://localhost:8000/users/${book.userBook.user_id}/books/${book.isbn}`, 
-    { method: 'PUT',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow'}
-    )
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-         }, [shelfID]);
+            useEffect(() => {
+                var myHeaders = new Headers();
+                myHeaders.append("accept", "application/json");
+                myHeaders.append("Content-Type", "application/json");
+                console.log( "inside useEffect "+shelfID)
+                var raw = JSON.stringify({
+                "shelf_id": shelfID
+                });
+                fetch(`http://localhost:8000/users/${book.userBook.user_id}/books/${book.isbn}`, 
+                { method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'}
+                )
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+            }, [shelfID]);
 
     return (
         <Flex direction="column" alignItems="center" p="1rem">
@@ -131,6 +175,9 @@ function BookOverview() {
                     <Button  onClick={handleEdit} colorScheme='teal' size='sm'>
                         Edit
                     </Button>
+                    <Button  onClick={handlefav} >
+                        {favText}
+                    </Button>    
                 </Box>
             </Flex>
             <Button
