@@ -54,7 +54,7 @@ function BookOverview() {
         console.log(shelfIDS[event.target.value]);
         setShelfID(shelfIDS[event.target.value]);
         // setShelfID(0);
-        
+           
     }
     const handlefav= () => {
         if(favorite==true){
@@ -100,25 +100,50 @@ function BookOverview() {
             
          }
     }
-   
-            useEffect(() => {
-                var myHeaders = new Headers();
-                myHeaders.append("accept", "application/json");
-                myHeaders.append("Content-Type", "application/json");
-                console.log( "inside useEffect "+shelfID)
-                var raw = JSON.stringify({
-                "shelf_id": shelfID
-                });
-                fetch(`http://localhost:8000/users/${book.userBook.user_id}/books/${book.isbn}`, 
-                { method: 'PUT',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'}
-                )
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
-            }, [shelfID]);
+    const handleAdd= () => {
+            console.log(book);
+            var myHeaders = new Headers();
+            myHeaders.append("accept", "application/json");
+            myHeaders.append("Content-Type", "application/json");
+            console.log( "inside useEffect "+favorite)
+            var raw = JSON.stringify({
+                "isbn": book.isbn,
+                "shelf_id": 0,
+                    
+                
+                
+            });
+            fetch(`http://localhost:8000/users/${book.userBook.user_id}/books`, 
+            { method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'})
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));  
+        
+    }
+    useEffect(() => {
+        var myHeaders = new Headers();
+        myHeaders.append("accept", "application/json");
+        myHeaders.append("Content-Type", "application/json");
+        console.log( "inside useEffect "+shelfID)
+        var raw = JSON.stringify({
+        "shelf_id": shelfID
+        });
+        fetch(`http://localhost:8000/users/${book.userBook.user_id}/books/${book.isbn}`, 
+        { method: 'PUT',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'}
+        )
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    }, [shelfID]);     
+            
+
+    
     if(currentShelf=="Recommended"){
         return (
             <Flex direction="column" alignItems="center" p="1rem">
@@ -172,12 +197,10 @@ function BookOverview() {
                             <b>Review:</b> {book.userBook.review}
                         </Text>
                         <br/>
-                        <Button  onClick={handleEdit} colorScheme='teal' size='sm'>
-                            Edit
+                        <Button  onClick={handleAdd} colorScheme='teal' size='sm'>
+                            Add to Read
                         </Button>
-                        <Button  onClick={handlefav} >
-                            {favText}
-                        </Button>    
+                         
                     </Box>
                 </Flex>
                 <Button
