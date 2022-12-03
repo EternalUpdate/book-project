@@ -195,6 +195,7 @@ function BookOverview() {
                 <Heading as="h1">Book Details</Heading>
                 <Flex direction="row" m="4rem">
                     <Image
+                        data-testid="image"
                         src={book.bookInfo.cover_url}
                         maxHeight="sm"
                         boxShadow="dark-lg"
@@ -264,6 +265,7 @@ function BookOverview() {
             <Heading as="h1">Book Details</Heading>
             <Flex direction="row" m="4rem">
                 <Image
+                    data-testid="image"
                     src={book.bookInfo.cover_url}
                     maxHeight="sm"
                     boxShadow="dark-lg"
@@ -280,7 +282,7 @@ function BookOverview() {
                     <Heading as="h2" fontSize="3xl" mb="1rem">
                         {book.bookInfo.title}
                     </Heading>
-                    <Text>
+                    <Text data-testid="dropdown">
                         <b>Shelf:</b> 
                     
                     {edit ? 
