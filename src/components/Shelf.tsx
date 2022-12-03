@@ -164,7 +164,7 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
             minWidth="lg"
         >
             <Flex justify="space-between" mb="1.5rem">
-                <Heading as="h2" size="md">
+                <Heading as="h2" size="md" data-testid={shelfID}>
                     {shelfName}
                 </Heading>
             </Flex>
