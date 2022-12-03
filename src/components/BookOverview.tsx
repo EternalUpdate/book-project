@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import {useState, useEffect} from "react";
 
 // import "./BookOverview.css";
-
 type Props = {
     id: number;
     shelfName: string;
@@ -22,8 +21,6 @@ type Props = {
      "Favorites":4,
      "Recommended":5,
 };
-
-
 
 function BookOverview() {
     const location = useLocation();
@@ -56,6 +53,27 @@ function BookOverview() {
         // setShelfID(0);
            
     }
+    useEffect(() => {
+        if(shelfID!=5)
+        {var myHeaders = new Headers();
+            myHeaders.append("accept", "application/json");
+            myHeaders.append("Content-Type", "application/json");
+            console.log( "inside useEffect "+shelfID)
+            var raw = JSON.stringify({
+            "shelf_id": shelfID
+            });
+            fetch(`http://localhost:8000/users/${book.userBook.user_id}/books/${book.isbn}`, 
+            { method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'}
+            )
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));}
+            
+    }, [shelfID]);  
+    
     const handlefav= () => {
         if(favorite==true){
             setfavorite(false);
@@ -105,13 +123,11 @@ function BookOverview() {
             var myHeaders = new Headers();
             myHeaders.append("accept", "application/json");
             myHeaders.append("Content-Type", "application/json");
-            console.log( "inside useEffect "+favorite)
             var raw = JSON.stringify({
                 "isbn": book.isbn,
                 "shelf_id": 0,
                     
-                
-                
+    
             });
             fetch(`http://localhost:8000/users/${book.userBook.user_id}/books`, 
             { method: 'POST',
@@ -123,24 +139,7 @@ function BookOverview() {
             .catch(error => console.log('error', error));  
         
     }
-    useEffect(() => {
-        var myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-        myHeaders.append("Content-Type", "application/json");
-        console.log( "inside useEffect "+shelfID)
-        var raw = JSON.stringify({
-        "shelf_id": shelfID
-        });
-        fetch(`http://localhost:8000/users/${book.userBook.user_id}/books/${book.isbn}`, 
-        { method: 'PUT',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'}
-        )
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-    }, [shelfID]);     
+       
             
 
     
