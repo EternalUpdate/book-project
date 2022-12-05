@@ -3,13 +3,8 @@ import { render, screen } from "@testing-library/react";
 import Shelf from "../Testing/TestShelf";
 import ShelfView from "../Shared/ShelfView";
 
-// test("to read shelf", async () => {
-//     render(<Shelf shelfID={0} userID={"1234"} shelfName="To Read" />)
 
-//     await waitFor(() => expect(screen.findAllByTestId("0")).toHaveLength(20));
-//     await waitFor(() => expect(screen.getByRole("h5")).toBeInTheDocument());
-// })
-
+// testing that all shelves are rendring or not
 test("loads all shelves", () => {
     render(<ShelfView />)
 
@@ -22,6 +17,7 @@ test("loads all shelves", () => {
     expect(screen.getByTestId("5")).toHaveTextContent("Recommended")
 })
 
+// testing for books inside of shelf that renders appropriately or not
 describe("books render appropriately", () => {
     test("load to read shelf", () => {
         render(<Shelf shelfID={0} userID={"1"} shelfName="To Read" />)

@@ -3,13 +3,14 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { Book } from "../types/Book";
 import { Link } from "react-router-dom";
 
-
+// props with their types
 type Props = {
     shelfID: number;
     userID: string;
     shelfName: string;
 };
 
+// object to get ids from their shelves name
 export const shelfNames: { [key: number]: string } = {
     0: "To Read",
     1: "Reading",
@@ -19,6 +20,7 @@ export const shelfNames: { [key: number]: string } = {
     5: "Recommended",
 };
 
+// function to render books by iterating through array
 function renderBooks(books: Book[], shelfID: number): ReactElement[] {
     const elements = Array<ReactElement>();
 
@@ -39,6 +41,7 @@ function renderBooks(books: Book[], shelfID: number): ReactElement[] {
     return elements;
 }
 
+// getting books by requesting through api using fetch
 export default function Shelf({ shelfID, userID, shelfName }: Props) {
     const [shelfBooks, setShelfBooks] = useState<Book[]>([]);
 
@@ -155,6 +158,7 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
             .catch((error) => console.log("error", error));}         
     }, [shelfID, userID]);
 
+    // rendering component using above implementation of rendering books in shellves and chakre-ui
     return (
         <Box
             borderRadius="lg"

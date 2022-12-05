@@ -10,6 +10,7 @@ import {
     ModalCloseButton,
 } from "@chakra-ui/react";
 
+// AddBookModal component that render Add Book feature
 export default function AddBookModal() {
     return (
         <Button maxWidth="10rem" justifySelf="flex-end" onClick={() => {}}>

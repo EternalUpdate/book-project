@@ -1,6 +1,7 @@
 import { VStack } from "@chakra-ui/react";
 import Shelf from "../components/Shelf";
 
+// shelfview component that shows all 6 shelves 
 export default function ShelfView() {
     return (
         <VStack spacing={3}>

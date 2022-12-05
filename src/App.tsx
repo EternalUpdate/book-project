@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MyBooks from "./my-books/MyBooks";
 import BookOverview from "./components/BookOverview";
 
+// App component that renders all other components using routers
 export const App = () => (
     <Router>
         <ChakraProvider theme={theme}>

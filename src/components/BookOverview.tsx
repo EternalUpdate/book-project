@@ -6,13 +6,14 @@ import { Image, Heading, Text, Box, Button, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import {useState, useEffect} from "react";
 
-// import "./BookOverview.css";
+// props with types
 type Props = {
     id: number;
     shelfName: string;
     books: Book[];
 };
 
+// object to get shelf name from its ids
  const shelfIDS: { [key: string]:Number } = {
      "To Read":0,
      "Reading":1,
@@ -22,10 +23,15 @@ type Props = {
      "Recommended":5,
 };
 
+// Bookoverview functional component that renders for onclick of specific book
 function BookOverview() {
+
+    // getting data from link through clicked book on shelf
     const location = useLocation();
     const book = location.state;
     const navigate = useNavigate();
+
+    // all states for Bookoverview component
     const [edit,setEdit]=useState(false);
     const [currentShelf,setCurrentShelf]=useState(shelfNames[book.userBook.shelf_id])
     const [shelfID,setShelfID]=useState(book.userBook.shelf_id);
@@ -35,24 +41,26 @@ function BookOverview() {
         return '♡';
     });
 
+    // function to handle onclick event for edit button
     const handleEdit = () => {
         setEdit(true);
     };
 
+    // function to handle onclick event for back button
     const goBack = () => {
         navigate(-1);
     };
 
-
+    // function to handle onchange event of dropdown menu to move book to different shelves
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        // do the rest here
+        
         console.log(event.target.value);
         setCurrentShelf(event.target.value); 
         console.log(shelfIDS[event.target.value]);
-        setShelfID(shelfIDS[event.target.value]);
-        // setShelfID(0);
-           
+        setShelfID(shelfIDS[event.target.value]);   
     }
+
+    // useEffect hook to send request to api to update shelf id when book is being moved
     useEffect(() => {
         if(shelfID!=5)
         {var myHeaders = new Headers();
@@ -74,6 +82,8 @@ function BookOverview() {
             
     }, [shelfID]);  
     
+    // function to handle favorite icon/button to add book to favorites
+    // using fetch api to send request 
     const handlefav= () => {
         if(favorite==true){
             setfavorite(false);
@@ -125,9 +135,7 @@ function BookOverview() {
             myHeaders.append("Content-Type", "application/json");
             var raw = JSON.stringify({
                 "isbn": book.isbn,
-                "shelf_id": 0,
-                    
-    
+                "shelf_id": 0,            
             });
             fetch(`http://localhost:8000/users/${book.userBook.user_id}/books`, 
             { method: 'POST',
@@ -142,7 +150,7 @@ function BookOverview() {
        
             
 
-    
+    // conditional rendring according to current shelf is recommmended or not
     if(currentShelf=="Recommended"){
         return (
             <Flex direction="column" alignItems="center" p="1rem">

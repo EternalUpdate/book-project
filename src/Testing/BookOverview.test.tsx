@@ -1,31 +1,13 @@
 import React from "react";
-// import { shallow } from 'enzyme';
-import { render,screen,fireEvent } from "@testing-library/react";
+import { render,screen,fireEvent, waitFor } from "@testing-library/react";
 import BookOverviewTest from "./BookOverviewTest";
 import { BrowserRouter } from 'react-router-dom';
 
 
-// Testing for edit button in bookoverview page
-test('renders BookOverview component and It has edit button',()=>{  
-
-        // render(<Shelf shelfID={0} shelfName="To Read" userID="1234" />);
-        const handleClick = jest.fn()
-        const {queryByTestId} = render(
-        <BrowserRouter>
-                <BookOverviewTest />
-         </BrowserRouter>
-        );
-        expect(queryByTestId("editButton")).toBeTruthy()!; 
-        // fireEvent.click(screen.getByText("Edit"));
-        // expect(handleClick).toHaveBeenCalledTimes(1);
-
-});
 
 // Testing for back button in bookoverview page
 test('renders BookOverview component and It has back button',()=>{  
 
-        // render(<Shelf shelfID={0} shelfName="To Read" userID="1234" />);
-        
         const {queryByTestId} = render(
         <BrowserRouter>
                 <BookOverviewTest />
@@ -63,6 +45,7 @@ test('renders BookOverview component and It shows image of book',()=>{
         expect(queryByTestId("image")).toBeInTheDocument(); 
 });
 
+// testing to check for dropdown menu to implement moving book feature
 test('renders BookOverview component and It provide shelf name or dropdown menu',()=>{  
  
         const {queryByTestId} = render(
@@ -76,14 +59,8 @@ test('renders BookOverview component and It provide shelf name or dropdown menu'
 
 
 
-// describe("<BookOverview />",()=>{
-//     const handledelete=jest.fn();
-//     const { queryByText } = render(
-//         <BrowserRouter>
-//         <BookOverview />
-//         </BrowserRouter>
-//     )
-//     const button = queryByText("img")!;
-//     fireEvent.click(button);
-//     expect(handledelete).toHaveBeenCalledTimes(1);
-// });
+
+
+
+
+
