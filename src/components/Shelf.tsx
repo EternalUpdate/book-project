@@ -43,6 +43,8 @@ function renderBooks(books: Book[], shelfID: number): ReactElement[] {
 
 // getting books through the api using appropriate fetch queries
 export default function Shelf({ shelfID, userID, shelfName }: Props) {
+    // this will be passed to the renderBooks() function
+    // the fetch queries will populate this array with fetched Books
     const [shelfBooks, setShelfBooks] = useState<Book[]>([]);
 
     useEffect(() => {
