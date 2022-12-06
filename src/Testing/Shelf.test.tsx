@@ -4,7 +4,7 @@ import Shelf from "../Testing/TestShelf";
 import ShelfView from "../Shared/ShelfView";
 
 
-// testing that all shelves are rendring or not
+// testing whether all shelves render correctly (without books first)
 test("loads all shelves", () => {
     render(<ShelfView />)
 
@@ -17,7 +17,7 @@ test("loads all shelves", () => {
     expect(screen.getByTestId("5")).toHaveTextContent("Recommended")
 })
 
-// testing for books inside of shelf that renders appropriately or not
+// testing that each shelf loads the appropriate books, based on dummy data
 describe("books render appropriately", () => {
     test("load to read shelf", () => {
         render(<Shelf shelfID={0} userID={"1"} shelfName="To Read" />)

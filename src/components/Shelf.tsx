@@ -10,7 +10,7 @@ type Props = {
     shelfName: string;
 };
 
-// object to get ids from their shelves name
+// object to allow the retrieval of shelf names from their shelf ID
 export const shelfNames: { [key: number]: string } = {
     0: "To Read",
     1: "Reading",
@@ -20,7 +20,7 @@ export const shelfNames: { [key: number]: string } = {
     5: "Recommended",
 };
 
-// function to render books by iterating through array
+// function to render books by iterating through a given array of books for a given shelf
 function renderBooks(books: Book[], shelfID: number): ReactElement[] {
     const elements = Array<ReactElement>();
 
@@ -41,7 +41,7 @@ function renderBooks(books: Book[], shelfID: number): ReactElement[] {
     return elements;
 }
 
-// getting books by requesting through api using fetch
+// getting books through the api using appropriate fetch queries
 export default function Shelf({ shelfID, userID, shelfName }: Props) {
     const [shelfBooks, setShelfBooks] = useState<Book[]>([]);
 
@@ -53,6 +53,7 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
             method: "GET",
             redirect: "follow",
         };
+        // for reading status shelves
         if(shelfID>=0&&shelfID<=3){
             fetch(`http://localhost:8000/users/${userID}/shelves/${shelfID}`,
             requestOptions
@@ -88,6 +89,7 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
                 setShelfBooks(books);
             })
             .catch((error) => console.log("error", error));}
+        // for the favorite shelf
         else if (shelfID==4){
             fetch(`http://localhost:8000/users/${userID}/favourites`,requestOptions)
             .then((response) => response.json())
@@ -121,6 +123,7 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
                 setShelfBooks(books);
             })
             .catch((error) => console.log("error", error));}
+        // for the recommendations shelf
         else{
             fetch(`http://localhost:8000/users/${userID}/recommended`,
             requestOptions
@@ -158,7 +161,7 @@ export default function Shelf({ shelfID, userID, shelfName }: Props) {
             .catch((error) => console.log("error", error));}         
     }, [shelfID, userID]);
 
-    // rendering component using above implementation of rendering books in shellves and chakre-ui
+    // render the shelf as a whole
     return (
         <Box
             borderRadius="lg"
